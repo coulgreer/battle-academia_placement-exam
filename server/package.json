@@ -1,0 +1,34 @@
+{
+  "name": "battle-academia_placement-exam",
+  "version": "0.0.1",
+  "description": "A React/Node.js project that utilizes the Riot Games API for League of Legends. Purposed to suggest champions for a player based on their played champions and high-elo player patterns.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cagreer18/battle-academia_placement-exam.git"
+  },
+  "keywords": [
+    "LoL",
+    "League",
+    "of",
+    "Legends",
+    "suggester",
+    "exam"
+  ],
+  "author": "Coul Greer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cagreer18/battle-academia_placement-exam/issues"
+  },
+  "homepage": "https://github.com/cagreer18/battle-academia_placement-exam#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "pg": "^8.2.1"
+  }
+}
