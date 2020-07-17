@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "14.3.0"
+
+install:
+  - npm install newman
+
+before_script:
+  - node --version
+  - npm --version
+  - node_modules/.bin/newman --version
+
+script:
+  # Tests
