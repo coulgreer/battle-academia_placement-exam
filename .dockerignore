@@ -1,0 +1,12 @@
+.gitignore
+
+### dotenv ###
+.env
+
+### Node ###
+node_modules
+npm-debug.log
+
+### Docker ###
+Dockerfile
+.dockerignore

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  client:
+    build: ./client
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+
+  server:
+    build: ./server
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  ${PGHOST}:
+    image: postgres:12.3-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=${PGDATABASE}
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:${PGPORT}"
+    volumes:
+      - ./server/db/scripts:/docker-entrypoint-initdb.d
+
+  server-test:
+    image: postman/newman
+    depends_on: server
+    volumes:
+      - .server/api/postman-collection:/etc/newman
+
+  
