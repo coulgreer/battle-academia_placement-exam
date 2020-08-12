@@ -1,26 +1,26 @@
 const express = require("express");
 const cors = require("cors");
-const pool = require("./db");
+
+const v1Champions = require("./api/v1/champions");
+const v1Summoners = require("./api/v1/summoners");
+const v1Versions = require("./api/v1/versions");
 
 require("dotenv").config();
 
 const app = express();
 app.use(express.json());
 
-const port = process.env.PORT || 5000;
+const corsOptions = {
+  origin: process.env.HOST_URL,
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Server is listening to port ${port}`));
-getChampionIds();
 
 // ROUTES //
-app.get("/testRoute", cors(), (req, res) =>
-  res.json({ message: "Hello, world!! I am a server :-)" })
-);
-
-// FUNCTIONS //
-function getChampionIds() {
-  pool
-    .query("SELECT champion_id FROM champion")
-    .then((res) => console.log(res.rows))
-    .catch((err) => console.log(err));
-}
+app.use("/api/v1/champions", v1Champions);
+app.use("/api/v1/summoners", v1Summoners);
+app.use("/api/v1/versions", v1Versions);

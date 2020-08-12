@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "2503d88c-1d49-45d0-a6e0-bf356f83bfa2",
+		"name": "Battle Academia: Placement Exam Tests",
+		"description": "An API used to communicate to the underlying `battle_academia` database and derive results used for suggesting champions.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api/v1/Champions",
+			"item": [
+				{
+					"name": "Get all champions ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "69cc3f21-8f8e-419a-9591-eac8d0ea2253",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", () => {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is JSON\", () => {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Schema is valid\", () => {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    let schema = {\r",
+									"        \"type\": \"array\",\r",
+									"        \"items\": JSON.parse(pm.collectionVariables.get(\"CHAMPION_SCHEMA\"))\r",
+									"    };\r",
+									"\r",
+									"    let valid = tv4.validate(jsonData, schema);\r",
+									"    if (tv4.error) {\r",
+									"        console.log(`Error at PATH: ${tv4.error.dataPath}; MESSAGE: ${tv4.error.message}`);\r",
+									"    }\r",
+									"\r",
+									"    pm.expect(valid).to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/champions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"champions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a champion with a valid ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9ff950be-6528-4934-9a35-ee7ce7be92ef",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", () => {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is JSON\", () => {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Schema is valid\", () => {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    let schema = pm.collectionVariables.get(\"CHAMPION_SCHEMA\");\r",
+									"\r",
+									"    let valid = tv4.validate(jsonData, schema);\r",
+									"    if (tv4.error) {\r",
+									"        console.log(`Error at PATH: ${tv4.error.dataPath}; MESSAGE: ${tv4.error.message}`);\r",
+									"    }\r",
+									"\r",
+									"    pm.expect(valid).to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/champions/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"champions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "164"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a champion with an invalid ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d60f91a5-3f0b-4411-8cf8-88bee7c534fe",
+								"exec": [
+									"pm.test(\"Status code is 404\", () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", () => {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is JSON\", () => {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Schema is valid\", () => {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    let schema = pm.collectionVariables.get(\"ERROR_SCHEMA\");\r",
+									"\r",
+									"    let valid = tv4.validate(jsonData, schema);\r",
+									"    if (tv4.error) {\r",
+									"        console.error(`Error at PATH: ${tv4.error.dataPath}; MESSAGE: ${tv4.error.message}`);\r",
+									"    }\r",
+									"\r",
+									"    pm.expect(valid).to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/champions/0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"champions",
+								"0"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Holds all requests that acquire basic data for champion(s).",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "api/v1/Summoners",
+			"item": [
+				{
+					"name": "Get a summoner's playstyle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a0c0a499-6878-4f31-b45f-59c15da7d6a9",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", () => {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is JSON\", () => {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/summoners/:platform/:name/points",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"summoners",
+								":platform",
+								":name",
+								"points"
+							],
+							"variable": [
+								{
+									"key": "platform",
+									"value": "NA1"
+								},
+								{
+									"key": "name",
+									"value": "UnusualHxro"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a summoner's playstyle using an invalid name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b54400d4-7dc8-4881-b798-066f62f0a57d",
+								"exec": [
+									"pm.test(\"Status code is 404\", () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", () => {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is JSON\", () => {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Schema is valid\", () => {\r",
+									"    let jsonData = pm.response.json();\r",
+									"    let schema = pm.collectionVariables.get(\"ERROR_SCHEMA\");\r",
+									"\r",
+									"    let valid = tv4.validate(jsonData, schema);\r",
+									"    if (tv4.error) {\r",
+									"        console.error(`Error at PATH: ${tv4.error.dataPath}; MESSAGE: ${tv4.error.message}`);\r",
+									"    }\r",
+									"\r",
+									"    pm.expect(valid).to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/summoners/:platform/n-a/points",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"summoners",
+								":platform",
+								"n-a",
+								"points"
+							],
+							"variable": [
+								{
+									"key": "platform",
+									"value": "NA1"
+								}
+							]
+						},
+						"description": "This request attempts to get a summoner on an existing platform using a name that does not exist on that platform.\r\n\r\nBased on experimenting with creating a new Riot account and changing an existing accounts summoner name, a valid summoner name must be: 1) more than three characters long, 2) contain only alphanumerical characters."
+					},
+					"response": []
+				},
+				{
+					"name": "Get a summoner's playstyle using an invalid platform",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aca4c363-979e-48e1-9151-f4ef767aa0af",
+								"exec": [
+									"pm.test(\"Status code is 404\", () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", () => {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is JSON\", () => {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/summoners/NotAValidPlatform/:name/suggestions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"summoners",
+								"NotAValidPlatform",
+								":name",
+								"suggestions"
+							],
+							"variable": [
+								{
+									"key": "name",
+									"value": "UnusualHxro"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "api/v1/Versions",
+			"item": [
+				{
+					"name": "Get all versions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6deb50dc-d898-4d2f-a197-24de122d6318",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", () => {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is JSON\", () => {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/versions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"versions"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "764b7f22-45e0-4976-b264-4b515f69f9fb",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ed30308e-c7a8-4d0a-9c27-d36632c9eaba",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "4a9cd9cf-f782-48bf-bea1-ce19b1e7d397",
+			"key": "baseUrl",
+			"value": "{{SERVER_URL}}"
+		},
+		{
+			"id": "439b2ca3-e433-4abc-af37-7c3d4a4a8e00",
+			"key": "CHAMPION_SCHEMA",
+			"value": "{\n  \"type\": \"object\",\n  \"required\": [\"champion_id\", \"champion_data\"],\n  \"properties\": {\n    \"champion_id\": {\n      \"type\": \"integer\"\n    },\n    \"champion_data\": {\n      \"type\": \"object\",\n      \"patternProperties\": {\n        \"[a-zA-Z0-9'. ]+\": {\n          \"type\": \"object\",\n          \"required\": [\n            \"version\",\n            \"id\",\n            \"key\",\n            \"name\",\n            \"title\",\n            \"blurb\",\n            \"info\",\n            \"image\",\n            \"tags\",\n            \"partype\",\n            \"stats\"\n          ],\n          \"properties\": {\n            \"version\": {\n              \"type\": \"string\"\n            },\n            \"id\": {\n              \"type\": \"string\"\n            },\n            \"key\": {\n              \"type\": \"string\"\n            },\n            \"name\": {\n              \"type\": \"string\"\n            },\n            \"title\": {\n              \"type\": \"string\"\n            },\n            \"blurb\": {\n              \"type\": \"string\"\n            },\n            \"info\": {\n              \"type\": \"object\",\n              \"required\": [\"attack\", \"defense\", \"magic\", \"difficulty\"],\n              \"properties\": {\n                \"attack\": {\n                  \"type\": \"integer\"\n                },\n                \"defense\": {\n                  \"type\": \"integer\"\n                },\n                \"magic\": {\n                  \"type\": \"integer\"\n                },\n                \"difficulty\": {\n                  \"type\": \"integer\"\n                }\n              },\n              \"additionalProperties\": false\n            },\n            \"image\": {\n              \"type\": \"object\",\n              \"required\": [\"full\", \"sprite\", \"group\", \"x\", \"y\", \"w\", \"h\"],\n              \"properties\": {\n                \"full\": {\n                  \"type\": \"string\"\n                },\n                \"sprite\": {\n                  \"type\": \"string\"\n                },\n                \"group\": {\n                  \"type\": \"string\"\n                },\n                \"x\": {\n                  \"type\": \"integer\"\n                },\n                \"y\": {\n                  \"type\": \"integer\"\n                },\n                \"w\": {\n                  \"$id\": \"#w\",\n                  \"type\": \"integer\"\n                },\n                \"h\": {\n                  \"type\": \"integer\"\n                }\n              },\n              \"additionalProperties\": false\n            },\n            \"tags\": {\n              \"type\": \"array\",\n              \"items\": {\n                \"type\": \"string\"\n              }\n            },\n            \"partype\": {\n              \"type\": \"string\"\n            },\n            \"stats\": {\n              \"type\": \"object\",\n              \"required\": [\n                \"hp\",\n                \"hpperlevel\",\n                \"mp\",\n                \"mpperlevel\",\n                \"movespeed\",\n                \"armor\",\n                \"armorperlevel\",\n                \"spellblock\",\n                \"spellblockperlevel\",\n                \"attackrange\",\n                \"hpregen\",\n                \"hpregenperlevel\",\n                \"mpregen\",\n                \"mpregenperlevel\",\n                \"crit\",\n                \"critperlevel\",\n                \"attackdamage\",\n                \"attackdamageperlevel\",\n                \"attackspeedperlevel\",\n                \"attackspeed\"\n              ],\n              \"properties\": {\n                \"hp\": {\n                  \"type\": \"number\"\n                },\n                \"hpperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"mp\": {\n                  \"type\": \"number\"\n                },\n                \"mpperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"movespeed\": {\n                  \"type\": \"number\"\n                },\n                \"armor\": {\n                  \"type\": \"number\"\n                },\n                \"armorperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"spellblock\": {\n                  \"type\": \"number\"\n                },\n                \"spellblockperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"attackrange\": {\n                  \"type\": \"number\"\n                },\n                \"hpregen\": {\n                  \"type\": \"number\"\n                },\n                \"hpregenperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"mpregen\": {\n                  \"type\": \"number\"\n                },\n                \"mpregenperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"crit\": {\n                  \"type\": \"number\"\n                },\n                \"critperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"attackdamage\": {\n                  \"type\": \"number\"\n                },\n                \"attackdamageperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"attackspeedperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"attackspeed\": {\n                  \"type\": \"number\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          },\n          \"additionalProperties\": false\n        }\n      },\n      \"additionalProperties\": false\n    }\n  },\n  \"additionalProperties\": false\n}"
+		},
+		{
+			"id": "8bbcc7e2-ddd0-4a18-a0af-7bf5ebcd9990",
+			"key": "ERROR_SCHEMA",
+			"value": "{\n        \"type\": \"object\",\n        \"required\": [\n            \"code\",\n            \"message\"\n        ],\n        \"properties\": {\n            \"code\": {\n                \"type\": \"integer\",\n                \"format\": \"int32\"\n            },\n            \"message\": {\n                \"type\": \"string\"\n            }\n        }\n    }"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
