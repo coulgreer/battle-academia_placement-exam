@@ -4,6 +4,7 @@ node_js:
 
 env:
   global:
+    - DOCKER_COMPOSE_VERSION: 1.26.2
     - PGHOST: db
     - PGDATABASE: battle_academia
     - secure: "xDZHJ9ZVe3WPXr6WetERMjFnTlMowyEoeckzLcRvWyEIe2qbnWrJRo7cIRxA0FsyJ7ao4QLVv4XhOIeqJupwW3nfnljo35WGcuRBLh76CW6JSuTIbpV1dndOpATW+aY3r6GSwpojnN4/yUVS53pvIeIn03PzQWmnbiJ0xfjStrJzYNpSVIHLn0arujDUMyze8+4ptS1qfekOy2KRifG5+viFarUbWUXaUiJfZCn14S4Wy5N/T+ycltNjX/qPAVZYV3fxY1ZyNX7wzJA+oV71MyApp5PgNW2SBlePkeZTnkbI7FW100MUnE4bvy00Jr/aCoWZYTySz86KT+8HSGzy6d+THO8zjOXKJV5Vn93+XWmxtp/yjBsg+dtFlZUWkN99EBkEjjwJc1Oy5zrOQNjsptNGpl1kid5+bAT4XcP4xn7X5pc7QB8ZE3igbfKTM11LABYN1adcIwgGIjUz1eQnFuibtkVM4oqE92JShUF/6gbwGJsWjQGBNBCOBBueYNB86sk0TiAfS08z2VW9L3pcljA2IwdXclw3f1ON6YelBTJmc88EmxI4TS0hRC5KgMCkegW1ndcTZwqIQGFm+NFbe1hKMmqTfgOg5M8OQZBtUkF60Lox09ECg59IrYj+BIa9J303+bo+IMgZ1JVYlL7FA2qc0bE8J/9A1C2wCRjDLLE="
@@ -13,8 +14,14 @@ env:
 services:
   - docker
 
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
 before_script:
-  - docker-compose up -d --build
+  - docker-compose up -d
 
 script:
   - >
