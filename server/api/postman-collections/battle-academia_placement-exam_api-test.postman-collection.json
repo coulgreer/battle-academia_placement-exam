@@ -218,7 +218,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/v1/summoners/:platform/:name/points",
+							"raw": "{{baseUrl}}/api/v1/summoners/:platform/:name/suggestions",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -228,7 +228,7 @@
 								"summoners",
 								":platform",
 								":name",
-								"points"
+								"suggestions"
 							],
 							"variable": [
 								{
@@ -285,7 +285,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/v1/summoners/:platform/n-a/points",
+							"raw": "{{baseUrl}}/api/v1/summoners/:platform/n-a/suggestions",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -295,7 +295,7 @@
 								"summoners",
 								":platform",
 								"n-a",
-								"points"
+								"suggestions"
 							],
 							"variable": [
 								{
@@ -435,17 +435,17 @@
 	],
 	"variable": [
 		{
-			"id": "4a9cd9cf-f782-48bf-bea1-ce19b1e7d397",
+			"id": "75eba779-750a-4d7a-98f9-acbc78147267",
 			"key": "baseUrl",
 			"value": "{{SERVER_URL}}"
 		},
 		{
-			"id": "439b2ca3-e433-4abc-af37-7c3d4a4a8e00",
+			"id": "f2d070df-a95f-4ebc-95d1-15b6549f0531",
 			"key": "CHAMPION_SCHEMA",
 			"value": "{\n  \"type\": \"object\",\n  \"required\": [\"champion_id\", \"champion_data\"],\n  \"properties\": {\n    \"champion_id\": {\n      \"type\": \"integer\"\n    },\n    \"champion_data\": {\n      \"type\": \"object\",\n      \"patternProperties\": {\n        \"[a-zA-Z0-9'. ]+\": {\n          \"type\": \"object\",\n          \"required\": [\n            \"version\",\n            \"id\",\n            \"key\",\n            \"name\",\n            \"title\",\n            \"blurb\",\n            \"info\",\n            \"image\",\n            \"tags\",\n            \"partype\",\n            \"stats\"\n          ],\n          \"properties\": {\n            \"version\": {\n              \"type\": \"string\"\n            },\n            \"id\": {\n              \"type\": \"string\"\n            },\n            \"key\": {\n              \"type\": \"string\"\n            },\n            \"name\": {\n              \"type\": \"string\"\n            },\n            \"title\": {\n              \"type\": \"string\"\n            },\n            \"blurb\": {\n              \"type\": \"string\"\n            },\n            \"info\": {\n              \"type\": \"object\",\n              \"required\": [\"attack\", \"defense\", \"magic\", \"difficulty\"],\n              \"properties\": {\n                \"attack\": {\n                  \"type\": \"integer\"\n                },\n                \"defense\": {\n                  \"type\": \"integer\"\n                },\n                \"magic\": {\n                  \"type\": \"integer\"\n                },\n                \"difficulty\": {\n                  \"type\": \"integer\"\n                }\n              },\n              \"additionalProperties\": false\n            },\n            \"image\": {\n              \"type\": \"object\",\n              \"required\": [\"full\", \"sprite\", \"group\", \"x\", \"y\", \"w\", \"h\"],\n              \"properties\": {\n                \"full\": {\n                  \"type\": \"string\"\n                },\n                \"sprite\": {\n                  \"type\": \"string\"\n                },\n                \"group\": {\n                  \"type\": \"string\"\n                },\n                \"x\": {\n                  \"type\": \"integer\"\n                },\n                \"y\": {\n                  \"type\": \"integer\"\n                },\n                \"w\": {\n                  \"$id\": \"#w\",\n                  \"type\": \"integer\"\n                },\n                \"h\": {\n                  \"type\": \"integer\"\n                }\n              },\n              \"additionalProperties\": false\n            },\n            \"tags\": {\n              \"type\": \"array\",\n              \"items\": {\n                \"type\": \"string\"\n              }\n            },\n            \"partype\": {\n              \"type\": \"string\"\n            },\n            \"stats\": {\n              \"type\": \"object\",\n              \"required\": [\n                \"hp\",\n                \"hpperlevel\",\n                \"mp\",\n                \"mpperlevel\",\n                \"movespeed\",\n                \"armor\",\n                \"armorperlevel\",\n                \"spellblock\",\n                \"spellblockperlevel\",\n                \"attackrange\",\n                \"hpregen\",\n                \"hpregenperlevel\",\n                \"mpregen\",\n                \"mpregenperlevel\",\n                \"crit\",\n                \"critperlevel\",\n                \"attackdamage\",\n                \"attackdamageperlevel\",\n                \"attackspeedperlevel\",\n                \"attackspeed\"\n              ],\n              \"properties\": {\n                \"hp\": {\n                  \"type\": \"number\"\n                },\n                \"hpperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"mp\": {\n                  \"type\": \"number\"\n                },\n                \"mpperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"movespeed\": {\n                  \"type\": \"number\"\n                },\n                \"armor\": {\n                  \"type\": \"number\"\n                },\n                \"armorperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"spellblock\": {\n                  \"type\": \"number\"\n                },\n                \"spellblockperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"attackrange\": {\n                  \"type\": \"number\"\n                },\n                \"hpregen\": {\n                  \"type\": \"number\"\n                },\n                \"hpregenperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"mpregen\": {\n                  \"type\": \"number\"\n                },\n                \"mpregenperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"crit\": {\n                  \"type\": \"number\"\n                },\n                \"critperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"attackdamage\": {\n                  \"type\": \"number\"\n                },\n                \"attackdamageperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"attackspeedperlevel\": {\n                  \"type\": \"number\"\n                },\n                \"attackspeed\": {\n                  \"type\": \"number\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          },\n          \"additionalProperties\": false\n        }\n      },\n      \"additionalProperties\": false\n    }\n  },\n  \"additionalProperties\": false\n}"
 		},
 		{
-			"id": "8bbcc7e2-ddd0-4a18-a0af-7bf5ebcd9990",
+			"id": "fe64b2a5-d8fe-44f8-94e0-b021f06ef644",
 			"key": "ERROR_SCHEMA",
 			"value": "{\n        \"type\": \"object\",\n        \"required\": [\n            \"code\",\n            \"message\"\n        ],\n        \"properties\": {\n            \"code\": {\n                \"type\": \"integer\",\n                \"format\": \"int32\"\n            },\n            \"message\": {\n                \"type\": \"string\"\n            }\n        }\n    }"
 		}

@@ -6,31 +6,35 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - server
+      - api
 
-  server:
+  api:
     build: ./server
     ports:
       - "3000:3000"
     depends_on:
       - db
 
-  ${PGHOST}:
+  db:
     image: postgres:12.3-alpine
     restart: always
     environment:
-      - POSTGRES_DB=${PGDATABASE}
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=battle_academia
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+      - PGHOST=${PGHOST}
+      - PGDATABASE=${PGDATABASE}
+      - PGUSER=${PGUSER}
+      - PGPASSWORD=${PGPASSWORD}
+      - PGPORT=${PGPORT}
     ports:
-      - "5432:${PGPORT}"
+      - "5432:5432"
     volumes:
       - ./server/db/scripts:/docker-entrypoint-initdb.d
 
-  server-test:
+  api-test:
     image: postman/newman
-    depends_on: server
     volumes:
-      - .server/api/postman-collection:/etc/newman
-
-  
+      - ./server/api/postman-collections:/etc/newman
+    depends_on:
+      - api
