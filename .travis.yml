@@ -30,4 +30,4 @@ script:
     -e battle-academia_placement-exam_docker.postman-environment.json
 
 after_script:
-  - docker compose down
+  - docker-compose down
