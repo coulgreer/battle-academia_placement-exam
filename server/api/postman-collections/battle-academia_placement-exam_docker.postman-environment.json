@@ -4,7 +4,7 @@
 	"values": [
 		{
 			"key": "SERVER_URL",
-			"value": "Server URL for Docker Environment",
+			"value": "api:3000",
 			"enabled": true
 		}
 	],
