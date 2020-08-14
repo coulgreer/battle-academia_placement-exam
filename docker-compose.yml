@@ -34,7 +34,7 @@ services:
       - ./server/db/scripts:/docker-entrypoint-initdb.d
 
   api-test:
-    image: postman/newman
+    image: postman/newman:5-alpine
     volumes:
       - ./server/api/postman-collections:/etc/newman
     depends_on:
