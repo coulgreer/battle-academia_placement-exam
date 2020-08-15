@@ -29,4 +29,4 @@ jobs:
           docker-compose run api-test
           newman run battle-academia_placement-exam_api-test.postman-collection.json
           -e battle-academia_placement-exam_docker.postman-environment.json
-          -r html,cli
+          -r htmlextra,cli
