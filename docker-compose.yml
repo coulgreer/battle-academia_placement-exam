@@ -34,7 +34,7 @@ services:
       - ./server/db/scripts:/docker-entrypoint-initdb.d
 
   api-test:
-    image: postman/newman:5-alpine
+    image: dannydainton/htmlextra
     entrypoint: [""]
     command: newman run -v
     volumes:
