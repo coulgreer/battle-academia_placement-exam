@@ -25,11 +25,10 @@ jobs:
   include:
     - stage: api tests
       before_script:
-        - docker-compose up --build
+        - npm install -g newman-reporter-html
       script:
         - >
           docker-compose run api-test
-          run battle-academia_placement-exam_api-test.postman-collection.json
+          newman run battle-academia_placement-exam_api-test.postman-collection.json
           -e battle-academia_placement-exam_docker.postman-environment.json
-      after_script:
-        - docker-compose down
+          -r html,cli
