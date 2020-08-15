@@ -1,8 +1,6 @@
 language: node_js
 node_js:
   - "14.3.0"
-cache:
-  npm: false
 
 env:
   global:
@@ -23,15 +21,15 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-before_script:
-  - docker-compose up --build
-
-script:
-  - docker-compose run api-test
-    --version
-  - docker-compose run api-test
-    run battle-academia_placement-exam_api-test.postman-collection.json
-    -e battle-academia_placement-exam_docker.postman-environment.json
-
-after_script:
-  - docker-compose down
+jobs:
+  include:
+    - stage: api tests
+      before_script:
+        - docker-compose up --build
+      script:
+        - >
+          docker-compose run api-test
+          run battle-academia_placement-exam_api-test.postman-collection.json
+          -e battle-academia_placement-exam_docker.postman-environment.json
+      after_script:
+        - docker-compose down

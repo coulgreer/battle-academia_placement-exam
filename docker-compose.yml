@@ -11,11 +11,11 @@ services:
   api:
     build: ./server
     environment:
-      - PGHOST=${PGHOST}
-      - PGDATABASE=${PGDATABASE}
-      - PGUSER=${PGUSER}
-      - PGPASSWORD=${PGPASSWORD}
-      - PGPORT=${PGPORT}
+      - PGHOST=db
+      - PGDATABASE=ba
+      - PGUSER=dc
+      - PGPASSWORD=dc
+      - PGPORT=5432
     ports:
       - "3000:3000"
     depends_on:
@@ -25,9 +25,9 @@ services:
     image: postgres:12.3-alpine
     restart: always
     environment:
-      - POSTGRES_DB=${PGDATABASE}
-      - POSTGRES_USER=${PGUSER}
-      - POSTGRES_PASSWORD=${PGPASSWORD}
+      - POSTGRES_DB=ba
+      - POSTGRES_USER=dc
+      - POSTGRES_PASSWORD=dc
     ports:
       - "5432:5432"
     volumes:
@@ -35,6 +35,8 @@ services:
 
   api-test:
     image: postman/newman:5-alpine
+    entrypoint: [""]
+    command: newman run -v
     volumes:
       - ./server/api/postman-collections:/etc/newman
     depends_on:
