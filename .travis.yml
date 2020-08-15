@@ -27,11 +27,9 @@ before_script:
   - docker-compose up --build
 
 script:
-  - >
-    docker-compose run api-test
+  - docker-compose run api-test
     --version
-  - >
-    docker-compose run api-test
+  - docker-compose run api-test
     run battle-academia_placement-exam_api-test.postman-collection.json
     -e battle-academia_placement-exam_docker.postman-environment.json
 
