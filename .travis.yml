@@ -24,8 +24,6 @@ before_install:
 jobs:
   include:
     - stage: api tests
-      before_script:
-        - npm install -g newman-reporter-html
       script:
         - >
           docker-compose run api-test
