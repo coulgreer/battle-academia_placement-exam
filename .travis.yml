@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - "14.3.0"
-cahce:
+cache:
   npm: false
 
 env:
@@ -27,6 +27,9 @@ before_script:
   - docker-compose up --build
 
 script:
+  - >
+    docker-compose run api-test
+    --version
   - >
     docker-compose run api-test
     run battle-academia_placement-exam_api-test.postman-collection.json
