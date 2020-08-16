@@ -11,7 +11,7 @@ services:
   api:
     build: ./server
     environment:
-      - PGHOST=5432
+      - PGHOST=db
       - PGDATABASE=battle_academia
       - PGUSER=docker
       - PGPASSWORD=docker
