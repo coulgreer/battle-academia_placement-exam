@@ -25,6 +25,8 @@ jobs:
   include:
     - stage: api tests
       script:
+        - docker --version
+        - docker-compose --version
         - >
           docker-compose run api-test
           newman run battle-academia_placement-exam_api-test.postman-collection.json
