@@ -22,6 +22,7 @@ jobs:
       script:
         - docker --version
         - docker-compose --version
+        - docker-compose config
         - >
           docker-compose run api-test
           newman run battle-academia_placement-exam_api-test.postman-collection.json
