@@ -41,3 +41,4 @@ services:
       - ./server/api/postman-collections:/etc/newman
     depends_on:
       - api
+    command: ["./wait-for-it.sh", "api:3000"]

@@ -19,8 +19,6 @@ before_install:
 jobs:
   include:
     - stage: api tests
-      before_script:
-        - docker-compose down
       script:
         - docker --version
         - docker-compose --version
@@ -30,3 +28,5 @@ jobs:
           newman run battle-academia_placement-exam_api-test.postman-collection.json
           -e battle-academia_placement-exam_docker.postman-environment.json
           -r htmlextra,cli
+      after_script:
+        - docker-compose down

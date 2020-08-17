@@ -6,4 +6,4 @@ COPY package*.json ./
 RUN npm ci
 EXPOSE 3000
 COPY . .
-CMD ["node", "index.js"]
+CMD ["./wait-for-postgres.sh", "db", "npm", "start"]
