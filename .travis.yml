@@ -19,6 +19,8 @@ before_install:
 jobs:
   include:
     - stage: api tests
+      before_script:
+        - docker-compose down
       script:
         - docker --version
         - docker-compose --version
