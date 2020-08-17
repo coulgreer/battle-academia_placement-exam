@@ -36,9 +36,9 @@ services:
   api-test:
     image: dannydainton/htmlextra
     entrypoint: [""]
-    command: newman run -v
     volumes:
       - ./server/api/postman-collections:/etc/newman
+      - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh
     depends_on:
       - api
-    command: ["./wait-for-it.sh", "api:3000"]
+    command: ["./wait-for-it.sh", "api:3000", "--", "newman"]
