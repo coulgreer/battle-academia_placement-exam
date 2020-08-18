@@ -32,8 +32,9 @@ jobs:
         - docker-compose up -d --build
       script:
         - >
-          node_modules/.bin/newman run battle-academia_placement-exam_api-test.postman-collection.json
-          -e battle-academia_placement-exam_docker.postman-environment.json
+          node_modules/.bin/newman 
+          run server/api/postman-collections\battle-academia_placement-exam_api-test.postman-collection.json
+          -e server/api/postman-collectionsbattle-academia_placement-exam_docker.postman-environment.json
           -r htmlextra,cli
       after_script:
         - docker-compose down
