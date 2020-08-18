@@ -1,7 +1,7 @@
-const pool = require("../../../db");
+const db = require("../../../db");
 
 exports.suggestions = (request, response) => {
-  pool
+  db
     .query(
       `SELECT * FROM summoner WHERE summoner_name='${request.params.name}' AND platform='${request.params.platform}'`
     )
@@ -16,5 +16,5 @@ exports.suggestions = (request, response) => {
       }
       response.json(result.rows[0]);
     })
-    .catch((error) => console.log(error));
+    .catch((error) => console.error(error));
 };
