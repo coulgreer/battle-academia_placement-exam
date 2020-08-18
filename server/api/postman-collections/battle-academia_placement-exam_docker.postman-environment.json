@@ -4,7 +4,7 @@
 	"values": [
 		{
 			"key": "SERVER_URL",
-			"value": "http://api:3000",
+			"value": "http://localhost:3000",
 			"enabled": true
 		}
 	],

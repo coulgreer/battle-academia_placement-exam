@@ -1,9 +1,0 @@
-.gitignore
-
-### Node ###
-node_modules
-npm-debug.log
-
-### Docker ###
-Dockerfile
-.dockerignore

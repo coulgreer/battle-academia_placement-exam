@@ -19,13 +19,20 @@ before_install:
 jobs:
   include:
     - stage: api tests
-      script:
+      install:
+        - npm install newman
+        - npm install newman-reporter-htmlextra
+      before_script:
+        - node --version
+        - npm --version
+        - node_modules/.bin/newman --version
         - docker --version
         - docker-compose --version
         - docker-compose config
+        - docker-compose up --build
+      script:
         - >
-          docker-compose run api-test
-          newman run battle-academia_placement-exam_api-test.postman-collection.json
+          node_modules/.bin/newman run battle-academia_placement-exam_api-test.postman-collection.json
           -e battle-academia_placement-exam_docker.postman-environment.json
           -r htmlextra,cli
       after_script:
