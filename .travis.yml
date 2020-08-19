@@ -11,26 +11,33 @@ env:
 services:
   - docker
 
-before_install:
-  - npm rebuild
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-
 jobs:
   include:
     - stage: api tests
+      before_install:
+        # Download specific version of Docker-Compose
+        - npm rebuild
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
       install:
         - npm install newman
       before_script:
+        # Check dependencies and config
         - node --version
         - npm --version
         - node_modules/.bin/newman --version
         - docker --version
         - docker-compose --version
         - docker-compose config
+        # Build containers
         - docker-compose up -d --build
+        - docker-compose ps
+        - >
+          docker-compose exec db
+          /bin/bash -c "until psql -l; do echo 'db unavailable. sleeping'; sleep 1; done"
+        - docker-compose exec db ls
       script:
         - >
           node_modules/.bin/newman 
