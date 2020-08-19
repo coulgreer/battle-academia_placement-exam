@@ -36,7 +36,7 @@ jobs:
         - docker-compose ps
         - >
           docker-compose exec db
-          /bin/bash -c "until psql \l; do echo 'db unavailable. sleeping'; sleep 1; done"
+          /bin/bash -c "psql -U ${PGUSER} -l; until psql \l; do echo 'db unavailable. sleeping'; sleep 1; done"
         - docker-compose exec db ls
       script:
         - >
