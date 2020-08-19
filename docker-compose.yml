@@ -5,10 +5,10 @@ services:
     build: ./server
     environment:
       - PGHOST=db
-      - PGDATABASE=battle_academia
-      - PGUSER=docker
-      - PGPASSWORD=docker
-      - PGPORT=5432
+      - PGDATABASE=${PGDATABASE}
+      - PGUSER=${PGUSER}
+      - PGPASSWORD=${PGPASSWORD}
+      - PGPORT=${PGPORT}
     ports:
       - "3000:3000"
     depends_on:
@@ -18,9 +18,9 @@ services:
     image: postgres:12.3-alpine
     restart: always
     environment:
-      - POSTGRES_DB=battle_academia
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=${PGDATABASE}
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
     ports:
       - "5432:5432"
     volumes:
