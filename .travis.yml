@@ -21,7 +21,6 @@ jobs:
     - stage: api tests
       install:
         - npm install newman
-        - npm install newman-reporter-htmlextra
       before_script:
         - node --version
         - npm --version
@@ -35,6 +34,6 @@ jobs:
           node_modules/.bin/newman 
           run server/api/postman-collections/battle-academia_placement-exam_api-test.postman-collection.json
           -e server/api/postman-collections/battle-academia_placement-exam_docker.postman-environment.json
-          -r htmlextra,cli
+          -r cli
       after_script:
         - docker-compose down
