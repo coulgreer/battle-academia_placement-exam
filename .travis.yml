@@ -39,6 +39,7 @@ jobs:
         - >
           docker-compose exec db
           /bin/bash -c "until psql -l -U ${PGUSER}; do echo 'db unavailable. sleeping'; sleep 1; done"
+        - docker-compose db ls
         - docker-compose logs db
       script:
         - >
