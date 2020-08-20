@@ -7,6 +7,8 @@ env:
     - DOCKER_COMPOSE_VERSION: 1.26.2
     - PGDATABASE: battle_academia
     - PGPORT: 5432
+    - PGUSER: docker
+    - PGPASSWORD: docker
 
 services:
   - docker

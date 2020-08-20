@@ -15,6 +15,7 @@ function hasConnectionError(err) {
 function attemptReconnect(client, resolve) {
   const totalAttempts = 5;
 
+  console.log("Attempting Reconnect!");
   for (let i = totalAttempts; i > 0; i--) {
     client.release();
     setTimeout(() => {

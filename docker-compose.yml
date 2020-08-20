@@ -6,7 +6,7 @@ services:
     environment:
       - PGHOST=db
       - PGDATABASE=${PGDATABASE}
-      - PGUSER=${PGUSER}
+      - PGUSER=${PGDATABASE}
       - PGPASSWORD=${PGPASSWORD}
       - PGPORT=${PGPORT}
     ports:
