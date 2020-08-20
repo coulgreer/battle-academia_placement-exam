@@ -33,6 +33,7 @@ jobs:
         - docker --version
         - docker-compose --version
         - docker-compose config
+        - ls -lah
         # Build containers
         - docker-compose up -Vd --build
         - docker-compose ps
