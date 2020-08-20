@@ -34,7 +34,7 @@ jobs:
         - docker-compose --version
         - docker-compose config
         # Build containers
-        - docker-compose up -d --build
+        - docker-compose up -Vd --build
         - docker-compose ps
         - >
           docker-compose exec db
