@@ -35,7 +35,8 @@ jobs:
         - docker-compose config
         - ls -lah
         # Build containers
-        - docker-compose up -Vd --build
+        - docker-compose rm -v --force --stop
+        - docker-compose up -d --build
         - docker-compose ps
         - >
           docker-compose exec db
