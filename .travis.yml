@@ -35,14 +35,13 @@ jobs:
         - docker-compose config
         - ls -lah
         # Build containers
-        - docker-compose rm -v --force --stop
-        - docker-compose up -d --build
+        - docker-compose up -d --renew-anon-volumes
         - docker-compose ps
         - >
           docker-compose exec db
           /bin/bash -c "until psql -l -U ${PGUSER}; do echo 'db unavailable. sleeping'; sleep 1; done"
         - docker-compose exec db ls
-        - docker-compose logs db
+        - docker-compose logs
       script:
         - >
           node_modules/.bin/newman 
