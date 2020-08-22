@@ -34,8 +34,6 @@ jobs:
         - docker-compose --version
         - docker-compose config
         # Build containers
-        - export UID=$(id -u)
-        - export GID=$(id -g)
         - >
           docker-compose
           -f docker-compose.yml
