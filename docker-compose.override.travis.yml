@@ -1,0 +1,4 @@
+db:
+  user: ${UID}:${GID}
+  volumes:
+    - /etc/passwd:/etc/passwd:ro

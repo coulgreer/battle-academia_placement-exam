@@ -33,10 +33,14 @@ jobs:
         - docker --version
         - docker-compose --version
         - docker-compose config
-        - ls -lah
         # Build containers
-        - docker-compose down --volumes
-        - docker-compose up -d --renew-anon-volumes
+        - export UID=$(id -u)
+        - export GID=$(id -g)
+        - >
+          docker-compose
+          -f docker-compose.yml
+          -f docker-compose.override.travis.yml
+          up -d
         - docker-compose ps
         - >
           docker-compose exec db
@@ -50,4 +54,4 @@ jobs:
           -e server/api/postman-collections/battle-academia_placement-exam_docker.postman-environment.json
           -r cli
       after_script:
-        - docker-compose down --volumes
+        - docker-compose down
