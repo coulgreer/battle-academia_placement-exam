@@ -34,8 +34,8 @@ jobs:
         - docker-compose --version
         - docker-compose config
         # Build containers
-        - sudo export TRAVIS_UID=${UID}
-        - sudo export TRAVIS_GID=${GID}
+        - export TRAVIS_UID=${UID}
+        - export TRAVIS_GID=${GID}
         - >
           docker-compose
           -f docker-compose.yml
