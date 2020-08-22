@@ -1,6 +1,7 @@
 version: '3.8'
 
-db:
-  user: ${UID}:${GID}
-  volumes:
-    - /etc/passwd:/etc/passwd:ro
+services:
+  db:
+    user: ${UID}:${GID}
+    volumes:
+      - /etc/passwd:/etc/passwd:ro
