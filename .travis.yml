@@ -35,6 +35,7 @@ jobs:
         - docker-compose config
         - ls -lah
         # Build containers
+        - docker-compose down --volumes
         - docker-compose up -d --renew-anon-volumes
         - docker-compose ps
         - >
@@ -49,4 +50,4 @@ jobs:
           -e server/api/postman-collections/battle-academia_placement-exam_docker.postman-environment.json
           -r cli
       after_script:
-        - docker-compose down
+        - docker-compose down --volumes
