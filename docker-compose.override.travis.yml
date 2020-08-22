@@ -2,6 +2,6 @@ version: '3.8'
 
 services:
   db:
-    user: ${UID}
+    user: ${TRAVIS_UID}:${TRAVIS_GID}
     volumes:
       - /etc/passwd:/etc/passwd:ro
