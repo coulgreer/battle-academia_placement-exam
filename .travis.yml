@@ -34,6 +34,7 @@ jobs:
         - docker-compose --version
         - docker-compose config
         # Build containers
+        - sudo echo ${UID}
         - >
           docker-compose
           -f docker-compose.yml
