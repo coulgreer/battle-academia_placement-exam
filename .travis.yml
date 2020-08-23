@@ -32,7 +32,6 @@ jobs:
         - node_modules/.bin/newman --version
         - docker --version
         - docker-compose --version
-        - docker-compose config
         - ls
         # Build containers
         - export TRAVIS_UID=${UID}
