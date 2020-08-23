@@ -37,15 +37,12 @@ jobs:
         # Build containers
         - export TRAVIS_UID=${UID}
         - export TRAVIS_GID=${GID}
+        - docker-compose run -v /etc/passwd:/etc/passwd:ro postgres
         - >
           docker-compose
           -f docker-compose.yml
           -f docker-compose.override.travis.yml
           up -d
-        - >
-          docker-compose exec 
-          db /bin/bash chown -R ${TRAVIS_UID}:${TRAVIS_GID} /docker-entrypoint-initdb.d
-        - docker-compose exec db postgres
         - docker-compose ps
         - docker-compose logs
         - >
