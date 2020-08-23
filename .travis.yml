@@ -42,9 +42,9 @@ jobs:
           -f docker-compose.yml
           -f docker-compose.override.travis.yml
           up -d
+        - docker-compose logs
         - docker-compose run -v /etc/passwd:/etc/passwd:ro db postgres
         - docker-compose ps
-        - docker-compose logs
         - >
           docker-compose exec db
           /bin/bash -c "until psql -l -U ${PGUSER}; do echo 'db unavailable. sleeping'; sleep 1; done"
