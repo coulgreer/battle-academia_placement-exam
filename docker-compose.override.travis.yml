@@ -1,7 +1,17 @@
 version: '3.8'
 
 services:
+  api:
+    build: ./server
+    environment:
+      - PGDATABASE=${PGDATABASE}
+      - PGUSER=${PGUSER}
+      - PGPASSWORD=${PGPASSWORD}
+      - PGPORT=${PGPORT}
   db:
+    image: postgres:12.3-alpine
     user: ${TRAVIS_UID}:${TRAVIS_GID}
-    volumes:
-      - /etc/passwd:/etc/passwd:ro
+    environment:
+      - POSTGRES_DB=${PGDATABASE}
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}

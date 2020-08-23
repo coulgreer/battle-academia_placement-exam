@@ -2,25 +2,15 @@ version: '3.8'
 
 services:
   api:
-    build: ./server
     environment:
       - PGHOST=db
-      - PGDATABASE=${PGDATABASE}
-      - PGUSER=${PGUSER}
-      - PGPASSWORD=${PGPASSWORD}
-      - PGPORT=${PGPORT}
     ports:
       - "3000:3000"
     depends_on:
       - db
 
   db:
-    image: postgres:12.3-alpine
     restart: always
-    environment:
-      - POSTGRES_DB=${PGDATABASE}
-      - POSTGRES_USER=${PGUSER}
-      - POSTGRES_PASSWORD=${PGPASSWORD}
     ports:
       - "5432:5432"
     volumes:
