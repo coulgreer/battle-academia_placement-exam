@@ -9,7 +9,7 @@ services:
       - PGPORT=${PGPORT}
 
   db:
-    user: ${TRAVIS_UID:?You must do 'export TRAVIS_UID' to launch}:${TRAVIS_GID:?You must do 'export TRAVIS_GID' to launch}
+    user: ${TRAVIS_UID}:${TRAVIS_GID}
     environment:
       - POSTGRES_DB=${PGDATABASE}
       - POSTGRES_USER=${PGUSER}
