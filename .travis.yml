@@ -37,7 +37,7 @@ jobs:
         # Build containers
         - export TRAVIS_UID=${UID}
         - export TRAVIS_GID=${GID}
-        - docker-compose run -v /etc/passwd:/etc/passwd:ro postgres
+        - docker-compose run -v /etc/passwd:/etc/passwd:ro db postgres
         - >
           docker-compose
           -f docker-compose.yml
