@@ -2,14 +2,12 @@ version: '3.8'
 
 services:
   api:
-    build: ./server
     environment:
       - PGDATABASE=${PGDATABASE}
       - PGUSER=${PGUSER}
       - PGPASSWORD=${PGPASSWORD}
       - PGPORT=${PGPORT}
   db:
-    image: postgres:12.3-alpine
     user: ${TRAVIS_UID}:${TRAVIS_GID}
     environment:
       - POSTGRES_DB=${PGDATABASE}

@@ -2,7 +2,6 @@ version: '3.8'
 
 services:
   api:
-    build: ./server
     environment:
       - PGDATABASE=battle_academia
       - PGUSER=docker
@@ -10,7 +9,6 @@ services:
       - PGPORT=5432
 
   db:
-    image: postgres:12.3-alpine
     environment:
       - POSTGRES_DB=battle_academia
       - POSTGRES_USER=docker

@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   api:
+    build: ./server
     environment:
       - PGHOST=db
     ports:
@@ -10,6 +11,7 @@ services:
       - db
 
   db:
+    image: postgres:12.3-alpine
     restart: always
     ports:
       - "5432:5432"
