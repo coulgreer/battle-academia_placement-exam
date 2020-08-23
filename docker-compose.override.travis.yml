@@ -7,9 +7,11 @@ services:
       - PGUSER=${PGUSER}
       - PGPASSWORD=${PGPASSWORD}
       - PGPORT=${PGPORT}
+
   db:
-    user: ${TRAVIS_UID}:${TRAVIS_GID}
+    user: ${TRAVIS_UID:?You must do 'export TRAVIS_UID' to launch}:${TRAVIS_GID:?You must do 'export TRAVIS_GID' to launch}
     environment:
       - POSTGRES_DB=${PGDATABASE}
       - POSTGRES_USER=${PGUSER}
       - POSTGRES_PASSWORD=${PGPASSWORD}
+      - PGDATA=/var/lib/postgresql/data/pgdata

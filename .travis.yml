@@ -43,7 +43,6 @@ jobs:
           -f docker-compose.override.travis.yml
           up -d
         - docker-compose logs
-        - docker-compose run -v /etc/passwd:/etc/passwd:ro db postgres
         - docker-compose ps
         - >
           docker-compose exec db
