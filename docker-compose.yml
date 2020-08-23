@@ -16,4 +16,5 @@ services:
     ports:
       - "5432:5432"
     volumes:
+      - /etc/passwd:/etc/passwd:ro
       - ./server/db/scripts:/docker-entrypoint-initdb.d
