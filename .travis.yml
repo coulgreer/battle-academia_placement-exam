@@ -36,7 +36,7 @@ jobs:
         - docker-compose --version
         - ls -lah
         # Build containers
-        - chown -R postgres:postgres ./server/db/scripts
+        - chown -R postgres:postgres $TRAVIS_BUILD_DIR/server/db/scripts
         - >
           docker-compose
           -f docker-compose.yml
@@ -56,4 +56,4 @@ jobs:
           -r cli
       after_script:
         - docker-compose down
-        - chown -R ${TRAVIS_UID}:${TRAVIS_GID} ./server/db/scripts
+        - chown -R ${TRAVIS_UID}:${TRAVIS_GID} $TRAVIS_BUILD_DIR/server/db/scripts
