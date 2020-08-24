@@ -17,8 +17,6 @@ jobs:
   include:
     - stage: api tests
       before_install:
-        - export TRAVIS_UID=${UID}
-        - export TRAVIS_GID=${GID}
         # Download specific version of Docker-Compose
         - npm rebuild
         - sudo rm /usr/local/bin/docker-compose
@@ -36,7 +34,6 @@ jobs:
         - docker-compose --version
         - ls -lah
         # Build containers
-        - chown -R postgres:postgres $TRAVIS_BUILD_DIR/server/db/scripts/
         - >
           docker-compose
           -f docker-compose.yml
@@ -56,4 +53,3 @@ jobs:
           -r cli
       after_script:
         - docker-compose down
-        - chown -R ${TRAVIS_UID}:${TRAVIS_GID} $TRAVIS_BUILD_DIR/server/db/scripts/
