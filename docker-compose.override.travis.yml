@@ -9,7 +9,6 @@ services:
       - PGPORT=${PGPORT}
 
   db:
-    user: ${TRAVIS_UID}:${TRAVIS_GID}
     environment:
       - POSTGRES_DB=${PGDATABASE}
       - POSTGRES_USER=${PGUSER}
