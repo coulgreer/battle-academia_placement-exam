@@ -13,7 +13,6 @@ env:
 services:
   - docker
 
-
 before_install:
   # Download specific version of Docker-Compose
   - npm rebuild
@@ -56,12 +55,33 @@ jobs:
           -r cli
       after_script:
         - docker-compose down
-    - script:
+    - before_script:
+        # Check dependencies and config
+        - node --version
+        - npm --version
+        - node_modules/.bin/newman --version
+        - docker --version
+        - docker-compose --version
+        - ls -lah
+        # Build containers
+        - >
+          docker-compose
+          -f docker-compose.yml
+          -f docker-compose.override.travis.yml
+          up -d
+        - docker-compose logs
+        - docker-compose ps
+        - >
+          docker-compose exec db
+          /bin/bash -c "until psql -l -U ${PGUSER}; do echo 'db unavailable. sleeping'; sleep 1; done"
+        - docker-compose exec db ls
+        - export PGUSER=invalid.user
+      script:
         - >
           node_modules/.bin/newman 
           run server/api/postman-collections/battle-academia_placement-exam_invalid-credentials-test.postman-collection.json
           -e server/api/postman-collections/battle-academia_placement-exam.postman-environment.json
           -r cli
-      env: 
-        - PGUSER: invalid.user
+      after_script:
+        - docker-compose down
       name: "Invalid Credentials"
