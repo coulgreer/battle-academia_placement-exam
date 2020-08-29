@@ -23,7 +23,7 @@ exports.champion_detail = async (request, response) => {
         message: "Champion ID does not exist.",
       });
     }
-    response.json(result.rows[0]);
+    response.json(results.rows[0]);
   } catch (err) {
     response.status(500).send({
       code: err.code,
