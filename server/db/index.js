@@ -7,50 +7,36 @@ const pool = process.env.DATABASE_URL
     })
   : new Pool();
 
-function hasConnectionError(err) {
-  let isClass08Error = err.code.match(/^08[A-Za-z0-9]{3}/);
-  return isClass08Error;
-}
-
-function attemptReconnect(client, resolve) {
-  const totalAttempts = 5;
-
-  console.log("Attempting Reconnect!");
-  for (let i = totalAttempts; i > 0; i--) {
-    client.release();
-    setTimeout(() => {
-      client = pool.connect();
-      client
-        .query(text)
-        .then((result) => {
-          resolve(result);
-          return;
-        })
-        .catch((err) => {
-          console.error(
-            `Attempts remaining: ${i}\nWhile attempting to reconnect:\n${err.stack}\n`
-          );
-        });
-    }, 5000);
-  }
-}
-
 module.exports = {
-  query: (text) => {
-    return new Promise(async (resolve, reject) => {
-      let client = await pool.connect();
-      await client
-        .query(text)
-        .then((result) => resolve(result))
-        .catch((err) => {
-          if (hasConnectionError(err)) {
-            attemptReconnect(client, resolve);
-          }
+  query: async (text) => {
+    console.info("\nAttempting connection...");
+    let client = await attemptConnection();
+    console.info("Connection successful");
 
-          reject(err);
-          return;
-        })
-        .finally(() => client.release());
-    });
+    try {
+      console.info("\nRunning query...")
+      return await client.query(text);
+    } finally {
+      client.release();
+    }
   },
 };
+
+async function attemptConnection() {
+  const maxAttempts = 5;
+
+  for (let attempts = 0; attempts < maxAttempts; attempts++) {
+    try {
+      return await pool.connect();
+    } catch (err) {
+      console.info(
+        `Error while connecting. Retrying: attempt ${attempts + 1}/${maxAttempts}`
+      );
+      if (attempts < maxAttempts - 1) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      } else {
+        throw err;
+      }
+    }
+  }
+}

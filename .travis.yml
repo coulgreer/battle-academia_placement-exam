@@ -13,18 +13,21 @@ env:
 services:
   - docker
 
+
+before_install:
+  # Download specific version of Docker-Compose
+  - npm rebuild
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+install:
+  - npm install newman
+
 jobs:
   include:
-    - stage: api tests
-      before_install:
-        # Download specific version of Docker-Compose
-        - npm rebuild
-        - sudo rm /usr/local/bin/docker-compose
-        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-        - chmod +x docker-compose
-        - sudo mv docker-compose /usr/local/bin
-      install:
-        - npm install newman
+    - stage: "API Tests"
+      name: "Valid Credentials"
       before_script:
         # Check dependencies and config
         - node --version
@@ -49,7 +52,16 @@ jobs:
         - >
           node_modules/.bin/newman 
           run server/api/postman-collections/battle-academia_placement-exam_api-test.postman-collection.json
-          -e server/api/postman-collections/battle-academia_placement-exam_docker.postman-environment.json
+          -e server/api/postman-collections/battle-academia_placement-exam.postman-environment.json
           -r cli
       after_script:
         - docker-compose down
+    - script:
+        - >
+          node_modules/.bin/newman 
+          run server/api/postman-collections/battle-academia_placement-exam_invalid-credentials-test.postman-collection.json
+          -e server/api/postman-collections/battle-academia_placement-exam.postman-environment.json
+          -r cli
+      env: 
+        - PGUSER: invalid.user
+      name: "Invalid Credentials"
